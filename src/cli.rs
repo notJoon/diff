@@ -4,7 +4,7 @@ use clap::{Parser, Subcommand};
 #[command(author, about, version, long_about = None)]
 pub struct DiffApp {
     #[clap(subcommand)]
-    pub command: DiffCommand
+    pub command: DiffCommand,
 }
 
 #[derive(Debug, Subcommand)]

@@ -3,6 +3,7 @@ use cli::{DiffApp, DiffCommand};
 
 mod cli;
 mod diff;
+mod range;
 
 fn main() {
     let app = DiffApp::parse();

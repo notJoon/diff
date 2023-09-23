@@ -49,22 +49,12 @@ impl ops::IndexMut<isize> for FurthestPathEndpoints {
 /// `Snake` is a sequence of diagonal edges in the edit graph that connect the furthest reaching.
 ///
 /// If a length is 0, it refers to the start and end points are the same.
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 struct Snake {
     x_start: usize,
     y_start: usize,
     x_end: usize,
     y_end: usize,
-}
-
-impl fmt::Display for Snake {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        write!(
-            f,
-            "({}, {}) -> ({}, {})",
-            self.x_start, self.y_start, self.x_end, self.y_end
-        )
-    }
 }
 
 fn max_d(a: usize, b: usize) -> usize {
@@ -250,6 +240,13 @@ mod diff_test {
         
         let result = find_snake_pivot(a, b, &mut vf, &mut vb);
 
-        println!("result: {:?}", result);
+        let expected = (5, Snake {
+            x_start: 4,
+            y_start: 1,
+            x_end: 5,
+            y_end: 2,
+        });
+
+        assert_eq!(result, expected);
     }
 }

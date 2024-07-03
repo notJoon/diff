@@ -120,9 +120,13 @@ func FormatDiff(edits []Edit) string {
 			case EditKeep:
 				result.WriteString(currentChars.String())
 			case EditInsert:
-				result.WriteString("[+" + currentChars.String() + "]")
+				result.WriteString("[+")
+				result.WriteString(currentChars.String())
+				result.WriteByte(']')
 			case EditDelete:
-				result.WriteString("[-" + currentChars.String() + "]")
+				result.WriteString("[-")
+				result.WriteString(currentChars.String())
+				result.WriteByte(']')
 			}
 			currentChars.Reset()
 		}

@@ -1,6 +1,7 @@
 package myers
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -82,6 +83,31 @@ func TestMyersDiff(t *testing.T) {
 			result := FormatDiff(diff)
 			if result != tt.expected {
 				t.Errorf("Expected: %s, got: %s", tt.expected, result)
+			}
+		})
+	}
+}
+
+func generateTestEdits(size int) []Edit {
+	edits := make([]Edit, size)
+	for i := 0; i < size; i++ {
+		edits[i] = Edit{
+			Type: EditType(i % 3),
+			Char: rune('a' + i%26),
+		}
+	}
+	return edits
+}
+
+func BenchmarkFormatDiff(b *testing.B) {
+	sizes := []int{10, 100, 1000, 10000}
+
+	for _, size := range sizes {
+		testEdits := generateTestEdits(size)
+
+		b.Run(fmt.Sprintf("Original-Size%d", size), func(b *testing.B) {
+			for i := 0; i < b.N; i++ {
+				FormatDiff(testEdits)
 			}
 		})
 	}
